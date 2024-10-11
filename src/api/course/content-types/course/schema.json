@@ -33,10 +33,6 @@
       "type": "richtext",
       "required": true
     },
-    "instructor": {
-      "type": "json",
-      "required": true
-    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -77,6 +73,10 @@
       "relation": "oneToOne",
       "target": "api::category.category",
       "inversedBy": "course"
+    },
+    "instructor": {
+      "type": "string",
+      "required": true
     }
   }
 }

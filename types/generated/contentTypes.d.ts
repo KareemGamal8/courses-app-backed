@@ -530,7 +530,6 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     requirements: Schema.Attribute.RichText & Schema.Attribute.Required;
     learningOutcomes: Schema.Attribute.RichText & Schema.Attribute.Required;
     targetAudience: Schema.Attribute.RichText & Schema.Attribute.Required;
-    instructor: Schema.Attribute.JSON & Schema.Attribute.Required;
     image: Schema.Attribute.Media<'images' | 'files'> &
       Schema.Attribute.Required;
     rating: Schema.Attribute.Integer &
@@ -548,6 +547,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     curriculum: Schema.Attribute.JSON & Schema.Attribute.Required;
     price: Schema.Attribute.Integer & Schema.Attribute.Required;
     category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
+    instructor: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
