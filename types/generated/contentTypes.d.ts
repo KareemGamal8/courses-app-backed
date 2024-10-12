@@ -491,13 +491,14 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     singularName: 'category';
     pluralName: 'categories';
     displayName: 'category';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    course: Schema.Attribute.Relation<'oneToOne', 'api::course.course'>;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -513,25 +514,20 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
-  collectionName: 'courses';
+export interface ApiProductProduct extends Struct.CollectionTypeSchema {
+  collectionName: 'products';
   info: {
-    singularName: 'course';
-    pluralName: 'courses';
-    displayName: 'course';
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'product';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     description: Schema.Attribute.RichText & Schema.Attribute.Required;
-    requirements: Schema.Attribute.RichText & Schema.Attribute.Required;
-    learningOutcomes: Schema.Attribute.RichText & Schema.Attribute.Required;
-    targetAudience: Schema.Attribute.RichText & Schema.Attribute.Required;
-    image: Schema.Attribute.Media<'images' | 'files'> &
-      Schema.Attribute.Required;
     rating: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
@@ -541,13 +537,15 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
         },
         number
       >;
-    duration: Schema.Attribute.String & Schema.Attribute.Required;
-    lessons: Schema.Attribute.Integer & Schema.Attribute.Required;
-    enrolled: Schema.Attribute.Integer & Schema.Attribute.Required;
     price: Schema.Attribute.Integer & Schema.Attribute.Required;
-    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
-    instructor: Schema.Attribute.String & Schema.Attribute.Required;
-    curriculum: Schema.Attribute.RichText & Schema.Attribute.Required;
+    salePrice: Schema.Attribute.Integer;
+    inStock: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    shortDescription: Schema.Attribute.Blocks & Schema.Attribute.Required;
+    images: Schema.Attribute.Media<'images' | 'files', true> &
+      Schema.Attribute.Required;
+    brand: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -556,7 +554,10 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product.product'
+    >;
   };
 }
 
@@ -936,7 +937,7 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::category.category': ApiCategoryCategory;
-      'api::course.course': ApiCourseCourse;
+      'api::product.product': ApiProductProduct;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;
