@@ -60,10 +60,6 @@
       "type": "integer",
       "required": true
     },
-    "curriculum": {
-      "type": "json",
-      "required": true
-    },
     "price": {
       "type": "integer",
       "required": true
@@ -76,6 +72,10 @@
     },
     "instructor": {
       "type": "string",
+      "required": true
+    },
+    "curriculum": {
+      "type": "richtext",
       "required": true
     }
   }

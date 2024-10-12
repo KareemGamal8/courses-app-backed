@@ -544,10 +544,10 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     duration: Schema.Attribute.String & Schema.Attribute.Required;
     lessons: Schema.Attribute.Integer & Schema.Attribute.Required;
     enrolled: Schema.Attribute.Integer & Schema.Attribute.Required;
-    curriculum: Schema.Attribute.JSON & Schema.Attribute.Required;
     price: Schema.Attribute.Integer & Schema.Attribute.Required;
     category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     instructor: Schema.Attribute.String & Schema.Attribute.Required;
+    curriculum: Schema.Attribute.RichText & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
