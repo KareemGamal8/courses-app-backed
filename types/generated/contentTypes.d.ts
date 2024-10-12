@@ -546,6 +546,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     images: Schema.Attribute.Media<'images' | 'files', true> &
       Schema.Attribute.Required;
     brand: Schema.Attribute.String & Schema.Attribute.Required;
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
